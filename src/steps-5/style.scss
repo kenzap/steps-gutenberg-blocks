@@ -1,0 +1,180 @@
+
+.kenzap .kenzap-steps-5 *{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.kenzap .kenzap-steps-5 img,
+.kenzap .kenzap-steps-5 ul,
+.kenzap .kenzap-steps-5 li,
+.kenzap .kenzap-steps-5 p,
+.kenzap .kenzap-steps-5 a{
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  text-decoration: none;
+  list-style:none
+}
+
+.kenzap .kenzap-steps-5 .clearfix:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.kenzap .kenzap-steps-5 .kenzap-container {
+  max-width: 1170px;
+  margin:0 auto;
+  padding:0 15px;
+}
+
+.kenzap .kenzap-steps-5 .kenzap-container:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.kenzap .kenzap-steps-5.autoPadding {
+  padding: calc(30px + (var(--paddings) - 30) * ((100vw - 300px) / (1600 - 300))) 0;
+}
+
+.kenzap .kenzap-steps-5 .kenzap-row{
+  margin:0 -15px;
+  display:flex;
+  display:-webkit-flex;
+  align-items:flex-start;
+  -webkit-align-items:flex-start;
+  justify-content:center;
+  -webkit-justify-content:center;
+  flex-wrap:wrap;
+  -webkit-flex-wrap:wrap;
+}
+
+.kenzap .kenzap-steps-5 .kenzap-col-3{
+  width:25%;
+  padding:0 15px;
+}
+
+.kenzap .kenzap-steps-5 .step-list .step-box{
+  margin:10px 0 20px 0;
+  text-align:center;
+  opacity:0;
+  -webkit-transition: opacity .3s ease;
+  -moz-transition: opacity .3s ease;
+  transition: opacity .3s ease;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(2) .step-box{
+  -webkit-transition-delay: .6s;
+  -moz-transition-delay: .6s;
+  transition-delay: .6s;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(3) .step-box{
+  -webkit-transition-delay: 1.2s;
+  -moz-transition-delay: 1.2s;
+  transition-delay: 1.2s;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(4) .step-box{
+  -webkit-transition-delay: 1.8s;
+  -moz-transition-delay: 1.8s;
+  transition-delay: 1.8s;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(5) .step-box{
+  -webkit-transition-delay: 2.4s;
+  -moz-transition-delay: 2.4s;
+  transition-delay: 2.4s;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(6) .step-box{
+  -webkit-transition-delay: 3.0s;
+  -moz-transition-delay: 3.0s;
+  transition-delay: 3.0s;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(7) .step-box{
+  -webkit-transition-delay: 3.6s;
+  -moz-transition-delay: 3.6s;
+  transition-delay: 3.6s;
+}
+
+.kenzap .kenzap-steps-5 .step-list > div > div:nth-child(8) .step-box{
+  -webkit-transition-delay: 4.2s;
+  -moz-transition-delay: 4.2s;
+  transition-delay: 4.2s;
+}
+
+.kenzap .kenzap-steps-5 .step-list.list-loaded .step-box{
+  opacity:1
+}
+
+.kenzap .kenzap-steps-5 .step-list .step-box .step-count span{
+  display:block;
+  margin:0 0 10px;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size:140px;
+  line-height:140px;
+  color:#fff;
+  font-weight:700;
+  -webkit-text-stroke: 1px var(--stepStrokeNumberColor);
+  -moz-text-stroke: 1px var(--stepStrokeNumberColor);
+  text-stroke: 1px var(--stepStrokeNumberColor);
+}
+
+.kenzap .kenzap-steps-5 .step-list .step-box .step-content h3{
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 24px;
+  line-height:30px;
+  font-weight: 700;
+  color:#000;
+  text-transform:uppercase;
+  margin:0 0 15px;
+}
+
+.kenzap .kenzap-steps-5 .step-list .step-box .step-content p{
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color:#000;
+  line-height:25px;
+  margin:0;
+}
+
+.kenzap .kenzap-steps-5.kenzap-md .kenzap-col-3,
+.kenzap .kenzap-steps-5.kenzap-sm .kenzap-col-3{
+  width:50%;
+}
+
+.kenzap .kenzap-steps-5.kenzap-xs .kenzap-col-3{
+  width:100%;
+}
+
+
+@media screen and (max-width: 61.938em) {
+  /* width: 991px; */
+
+  .kenzap .kenzap-steps-5 .kenzap-col-3{
+    width:50%;
+  }
+
+}
+
+
+@media screen and (max-width: 48em) {
+  /* width 768px */
+  .kenzap .kenzap-steps-5.kenzap-md .kenzap-col-3,
+  .kenzap .kenzap-steps-5.kenzap-sm .kenzap-col-3,
+  .kenzap .kenzap-steps-5 .kenzap-col-3{
+    width:100%;
+  }
+}

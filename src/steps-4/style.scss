@@ -1,0 +1,124 @@
+
+.kenzap .kenzap-steps-4 *{
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.kenzap .kenzap-steps-4 img,
+.kenzap .kenzap-steps-4 ul,
+.kenzap .kenzap-steps-4 li,
+.kenzap .kenzap-steps-4 p,
+.kenzap .kenzap-steps-4 a{
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  border: none;
+  text-decoration: none;
+  list-style:none
+}
+
+.kenzap .kenzap-steps-4 .clearfix:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.kenzap .kenzap-steps-4.autoPadding {
+  padding: calc(30px + (var(--paddings) - 30) * ((100vw - 300px) / (1600 - 300))) 0;
+}
+
+.kenzap .kenzap-steps-4 .kenzap-container {
+  max-width: 1170px;
+  margin:0 auto;
+  padding:0 15px;
+}
+
+.kenzap .kenzap-steps-4 .kenzap-container:after{
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+.kenzap .kenzap-steps-4 .kenzap-row{
+  margin:0 -15px 0px -15px;
+  display:flex;
+  display:-webkit-flex;
+  align-items:flext-start;
+  -webkit-align-items:flext-start;
+  justify-content:center;
+  -webkit-justify-content:center;
+  flex-wrap:wrap;
+  -webkit-flex-wrap:wrap;
+}
+
+.kenzap .kenzap-steps-4 .kenzap-col-4{
+  width:33.33333%;
+  padding:0 15px;
+}
+
+.kenzap .kenzap-steps-4 .step-list .step-box{
+  text-align:center;
+  opacity:0;
+  margin:5px 0 0;
+  transition:all .5s
+}
+
+.kenzap .kenzap-steps-4 .step-list.list-loaded .step-box{
+  opacity:1;
+  margin:15px 0;
+}
+
+.kenzap .kenzap-steps-4 .step-list .step-box img{
+  display:block;
+  margin:0 auto 40px;
+}
+
+.kenzap .kenzap-steps-4 .step-list .step-box h3{
+  font-size: 20px;
+  line-height:24px;
+  font-weight: 600;
+  margin:0 0 20px;
+}
+
+.kenzap .kenzap-steps-4 .step-list .step-box p{
+  font-size: 14px;
+  font-weight: 400;
+  line-height:27px;
+  margin:0;
+}
+
+.kenzap .kenzap-steps-4.kenzap-md .kenzap-col-4,
+.kenzap .kenzap-steps-4.kenzap-sm .kenzap-col-4{
+  width:50%;
+}
+
+.kenzap .kenzap-steps-4.kenzap-xs .kenzap-col-4{
+  width:100%;
+}
+
+
+@media screen and (max-width: 61.938em) {
+  /* width: 991px; */
+
+  .kenzap .kenzap-steps-4 .kenzap-col-4{
+    width:50%;
+  }
+
+}
+
+@media screen and (max-width: 48em) {
+  /* width 768px */
+
+  .kenzap .kenzap-steps-4.kenzap-md .kenzap-col-4,
+  .kenzap .kenzap-steps-4.kenzap-sm .kenzap-col-4,
+  .kenzap .kenzap-steps-4 .kenzap-col-4{
+    width:100%;
+  }
+}
