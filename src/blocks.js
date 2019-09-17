@@ -9,8 +9,7 @@
  * Webpack is compiling as the input file.
  */
 
-import './steps-1/block.js';
-import './steps-2/block.js';
-import './steps-3/block.js';
-import './steps-4/block.js';
-import './steps-5/block.js';
+import './stats-1/block.js';
+import './stats-2/block.js';
+import './stats-3/block.js';
+import './stats-4/block.js';
