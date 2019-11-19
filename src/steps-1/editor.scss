@@ -1,15 +1,15 @@
 
-.kenzap .kenzap-steps-1 *{
+.kenzap .kpst-1 *{
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-.kenzap .kenzap-steps-1 img,
-.kenzap .kenzap-steps-1 ul,
-.kenzap .kenzap-steps-1 li,
-.kenzap .kenzap-steps-1 p,
-.kenzap .kenzap-steps-1 a{
+.kenzap .kpst-1 h3,
+.kenzap .kpst-1 ul,
+.kenzap .kpst-1 li,
+.kenzap .kpst-1 p,
+.kenzap .kpst-1 a{
   padding: 0;
   margin: 0;
   box-shadow: none;
@@ -18,7 +18,7 @@
   list-style:none
 }
 
-.kenzap .kenzap-steps-1 .clearfix:after{
+.kenzap .kpst-1 .clearfix:after{
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -26,17 +26,18 @@
   clear: both;
   height: 0;
 }
-.kenzap .kenzap-steps-1.autoPadding {
+
+.kenzap .kpst-1.autoPadding {
   padding: calc(30px + (var(--paddings) - 30) * ((100vw - 300px) / (1600 - 300))) 0;
 }
 
-.kenzap .kenzap-steps-1 .kenzap-container {
+.kenzap .kpst-1 .kenzap-container {
   max-width: 1170px;
   margin:0 auto;
   padding:0 15px;
 }
 
-.kenzap .kenzap-steps-1 .kenzap-container:after{
+.kenzap .kpst-1 .kenzap-container:after{
   visibility: hidden;
   display: block;
   font-size: 0;
@@ -45,7 +46,7 @@
   height: 0;
 }
 
-.kenzap .kenzap-steps-1 .kenzap-row{
+.kenzap .kpst-1 .kenzap-row{
   margin:0 -15px;
   display:flex;
   display:-webkit-flex;
@@ -57,13 +58,13 @@
   -webkit-flex-wrap:wrap;
 }
 
-.kenzap .kenzap-steps-1 .kenzap-col-4{
+.kenzap .kpst-1 .kenzap-col-4{
   width:33.33333%;
   padding:0 15px;
   position: relative;
 }
 
-.kenzap .kenzap-steps-1 .step-list .step-box {
+.kenzap .kpst-1 .step-list .step-box {
   text-align:center;
   opacity:0;
   -webkit-transition: opacity .2s ease,-webkit-transform .3s ease;
@@ -71,7 +72,7 @@
   transition: opacity .2s ease,transform .3s ease;
 }
 
-.kenzap .kenzap-steps-1 .step-list .step-box .step-count span{
+.kenzap .kpst-1 .step-list .step-box .step-count span{
   position: relative;
   display: inline-block;
   text-align:center;
@@ -81,8 +82,8 @@
   font-size: 18px;
   line-height: 46px;
   font-weight: 700;
-  color: #fff;
-  background-color: #000;
+  color: var(--stepNumberColor, #fff);
+  background-color: var(--textColor2, #333);
   border-radius: 100%;
   opacity: 0;
   -webkit-transition: opacity .2s ease,-webkit-transform .3s ease;
@@ -95,33 +96,33 @@
   z-index:9
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded .step-box .step-count span{
+.kenzap .kpst-1 .step-list.list-loaded .step-box .step-count span{
   opacity: 1;
   -webkit-transform: scale(1);
   -moz-transform: scale(1);
   transform: scale(1);
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded .step-box{
+.kenzap .kpst-1 .step-list.list-loaded .step-box{
   opacity:1
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:nth-child(2) .step-box,
-.kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:nth-child(2) .step-box .step-count span{
+.kenzap .kpst-1 .step-list.list-loaded > div > div:nth-child(2) .step-box,
+.kenzap .kpst-1 .step-list.list-loaded > div > div:nth-child(2) .step-box .step-count span{
   transition-delay: .3s;
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:nth-child(3) .step-box,
-.kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:nth-child(3) .step-box .step-count span{
+.kenzap .kpst-1 .step-list.list-loaded > div > div:nth-child(3) .step-box,
+.kenzap .kpst-1 .step-list.list-loaded > div > div:nth-child(3) .step-box .step-count span{
   transition-delay: .5s;
 }
 
-.kenzap .kenzap-steps-1 .step-list .step-count{
+.kenzap .kpst-1 .step-list .step-count{
   position:relative;
   margin:0 0 25px;
 }
 
-.kenzap .kenzap-steps-1 .step-list > div > div:first-child .step-count:after{
+.kenzap .kpst-1 .step-list > div > div:first-child .step-count:after{
   content: "";
   display:block;
   height:1px;
@@ -131,17 +132,17 @@
   margin:auto;
   left:50%;
   right:50%;
-  background:#000;
+  background:#333;
   background: var(--textColor);
   transition:all .1s
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:first-child .step-count:after{
+.kenzap .kpst-1 .step-list.list-loaded > div > div:first-child .step-count:after{
   transition-delay: .2s;
   right:-15px;
 }
 
-.kenzap .kenzap-steps-1 .step-list  .step-count:after{
+.kenzap .kpst-1 .step-list  .step-count:after{
   content: "";
   display:block;
   height:1px;
@@ -151,17 +152,17 @@
   margin:auto;
   left:-15px;
   right:150%;
-  background:#000;
-  background: var(--textColor);
+  background:#333;
+  background: var(--textColor2);
   transition:all .3s
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded  .step-count:after{
+.kenzap .kpst-1 .step-list.list-loaded  .step-count:after{
   transition-delay: .3s;
   right:-15px;
 }
 
-.kenzap .kenzap-steps-1 .step-list > div > div:last-child .step-count:after{
+.kenzap .kpst-1 .step-list > div > div:last-child .step-count:after{
   content: "";
   display:block;
   height:1px;
@@ -171,28 +172,28 @@
   margin:auto;
   right:150%;
   left:-15px;
-  background:#000;
-  background: var(--textColor);
+  background:#333;
+  background: var(--textColor2);
 }
 
-.kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:last-child .step-count:after{
+.kenzap .kpst-1 .step-list.list-loaded > div > div:last-child .step-count:after{
   transition-delay: .5s;
   right:50%;
 
 }
 
-.kenzap .kenzap-steps-1 .step-list .step-box .step-content{
+.kenzap .kpst-1 .step-list .step-box .step-content{
   text-align:center
 }
 
-.kenzap .kenzap-steps-1 .step-list .step-box .step-content h3{
+.kenzap .kpst-1 .step-list .step-box .step-content h3{
   position: relative;
   display: inline-block;
   margin:0 0 10px;
   font-size: 30px;
-  font-weight: 700;
+  font-weight: var(--fontWeight, 700);
   text-transform:uppercase;
-  color: #000;
+  color: var(--textColor3, #000);
   opacity: 1;
   -webkit-transition: opacity .2s ease,-webkit-transform .3s ease;
   -moz-transition: opacity .2s ease,-moz-transform .3s ease;
@@ -200,14 +201,14 @@
   z-index:9
 }
 
-.kenzap .kenzap-steps-1 .step-list .step-box .step-content p{
+.kenzap .kpst-1 .step-list .step-box .step-content p{
   position: relative;
   display: inline-block;
   margin:0;
   font-size: 14px;
-  line-height:26px;
+  line-height:1.6;
   font-weight: 400;
-  color: #000;
+  color: var(--textColor4, #000);
   opacity: 1;
   -webkit-transition: opacity .2s ease,-webkit-transform .3s ease;
   -moz-transition: opacity .2s ease,-moz-transform .3s ease;
@@ -215,13 +216,13 @@
   z-index:9
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .kenzap-col-4,
-.kenzap .kenzap-steps-1.kenzap-sm .kenzap-col-4{
+.kenzap .kpst-1.kenzap-xs .kenzap-col-4,
+.kenzap .kpst-1.kenzap-sm .kenzap-col-4{
   width:100%;
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list .step-box,
-.kenzap .kenzap-steps-1.kenzap-sm .step-list .step-box{
+.kenzap .kpst-1.kenzap-xs .step-list .step-box,
+.kenzap .kpst-1.kenzap-sm .step-list .step-box{
   display:flex;
   display:-webkit-flex;
   align-items:stretch ;
@@ -231,18 +232,18 @@
   margin: 0 0 50px;
 }
 
-.kenzap .kenzap-steps-1.kenzap-sm .step-list .step-box .step-count{
+.kenzap .kpst-1.kenzap-sm .step-list .step-box .step-count{
   width:20%;
   margin:0
 }
 
-.kenzap .kenzap-steps-1.kenzap-sm .step-list .step-box .step-content{
+.kenzap .kpst-1.kenzap-sm .step-list .step-box .step-content{
   width:80%;
   text-align:left
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list > div > div:first-child .step-count:after,
-.kenzap .kenzap-steps-1.kenzap-sm .step-list > div > div:first-child .step-count:after{
+.kenzap .kpst-1.kenzap-xs .step-list > div > div:first-child .step-count:after,
+.kenzap .kpst-1.kenzap-sm .step-list > div > div:first-child .step-count:after{
   left:0;
   right:0;
   top:10px;
@@ -251,14 +252,14 @@
   width:1px;
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list.list-loaded > div > div:first-child .step-count:after,
-.kenzap .kenzap-steps-1.kenzap-sm .step-list.list-loaded > div > div:first-child .step-count:after{
+.kenzap .kpst-1.kenzap-xs .step-list.list-loaded > div > div:first-child .step-count:after,
+.kenzap .kpst-1.kenzap-sm .step-list.list-loaded > div > div:first-child .step-count:after{
   right:0;
   bottom:-50px;
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list  .step-count:after,
-.kenzap .kenzap-steps-1.kenzap-sm .step-list  .step-count:after{
+.kenzap .kpst-1.kenzap-xs .step-list  .step-count:after,
+.kenzap .kpst-1.kenzap-sm .step-list  .step-count:after{
   top:10px;
   bottom:100%;
   left:0;
@@ -267,22 +268,22 @@
   width:1px;
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list.list-loaded  .step-count:after,
-.kenzap .kenzap-steps-1.kenzap-sm .step-list.list-loaded  .step-count:after{
+.kenzap .kpst-1.kenzap-xs .step-list.list-loaded  .step-count:after,
+.kenzap .kpst-1.kenzap-sm .step-list.list-loaded  .step-count:after{
   right:0;
   bottom:-50px;
 }
-.kenzap .kenzap-steps-1.kenzap-xs .step-list > div > div:last-child .step-count:after,
-.kenzap .kenzap-steps-1.kenzap-sm .step-list > div > div:last-child .step-count:after{
+.kenzap .kpst-1.kenzap-xs .step-list > div > div:last-child .step-count:after,
+.kenzap .kpst-1.kenzap-sm .step-list > div > div:last-child .step-count:after{
   display:none
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list .step-box .step-count{
+.kenzap .kpst-1.kenzap-xs .step-list .step-box .step-count{
   width:30%;
   margin:0
 }
 
-.kenzap .kenzap-steps-1.kenzap-xs .step-list .step-box .step-content{
+.kenzap .kpst-1.kenzap-xs .step-list .step-box .step-content{
   width:70%;
   text-align:left
 }
@@ -290,11 +291,11 @@
 
 @media screen and (max-width: 48em) {
   /* width 768px */
-  .kenzap .kenzap-steps-1 .kenzap-col-4{
+  .kenzap .kpst-1 .kenzap-col-4{
     width:100%;
   }
 
-  .kenzap .kenzap-steps-1 .step-list .step-box{
+  .kenzap .kpst-1 .step-list .step-box{
     display:flex;
     display:-webkit-flex;
     align-items:stretch ;
@@ -304,17 +305,17 @@
     margin: 0 0 50px;
   }
 
-  .kenzap .kenzap-steps-1 .step-list .step-box .step-count{
+  .kenzap .kpst-1 .step-list .step-box .step-count{
     width:20%;
     margin:0
   }
 
-  .kenzap .kenzap-steps-1 .step-list .step-box .step-content{
+  .kenzap .kpst-1 .step-list .step-box .step-content{
     width:80%;
     text-align:left
   }
 
-  .kenzap .kenzap-steps-1 .step-list > div > div:first-child .step-count:after{
+  .kenzap .kpst-1 .step-list > div > div:first-child .step-count:after{
     left:0;
     right:0;
     top:10px;
@@ -323,12 +324,12 @@
     width:1px;
   }
 
-  .kenzap .kenzap-steps-1 .step-list.list-loaded > div > div:first-child .step-count:after{
+  .kenzap .kpst-1 .step-list.list-loaded > div > div:first-child .step-count:after{
     right:0;
     bottom:-50px;
   }
 
-  .kenzap .kenzap-steps-1 .step-list  .step-count:after{
+  .kenzap .kpst-1 .step-list  .step-count:after{
     top:10px;
     bottom:100%;
     left:0;
@@ -337,12 +338,12 @@
     width:1px;
   }
 
-  .kenzap .kenzap-steps-1 .step-list.list-loaded  .step-count:after{
+  .kenzap .kpst-1 .step-list.list-loaded  .step-count:after{
     right:0;
     bottom:-50px;
   }
 
-  .kenzap .kenzap-steps-1 .step-list > div > div:last-child .step-count:after{
+  .kenzap .kpst-1 .step-list > div > div:last-child .step-count:after{
     display:none
   }
 
@@ -352,17 +353,17 @@
 @media screen and (max-width: 30em) {
   /* width 480px */
 
-  .kenzap .kenzap-steps-1 .step-list .step-box .step-count{
+  .kenzap .kpst-1 .step-list .step-box .step-count{
     width:30%;
   }
 
-  .kenzap .kenzap-steps-1 .step-list .step-box .step-content{
+  .kenzap .kpst-1 .step-list .step-box .step-content{
     width:70%;
     text-align:left
   }
 }
 
-.kenzap .kenzap-steps-1 .remove {
+.kenzap .kpst-1 .remove {
   opacity: 0;
   position: absolute;
   top: 0px;
@@ -390,11 +391,11 @@
   }
 }
 
-.kenzap .kenzap-steps-1 .kenzap-col-4:hover .remove{
+.kenzap .kpst-1 .kenzap-col-4:hover .remove{
   opacity: 1;
 }
 
-.kenzap .kenzap-steps-1 .addWhite {
+.kenzap .kpst-1 .addWhite {
   position: absolute;
   display: none;
   bottom: 20px;
@@ -426,16 +427,16 @@
   }
 }
 
-.kenzap .kenzap-steps-1 {
+.kenzap .kpst-1 {
   position: relative;
   transition: all .2s;
 }
 
-.kenzap .kenzap-steps-1 .editPadding {
+.kenzap .kpst-1 .editPadding {
   transition: all .2s;
 }
 
-.kenzap .kenzap-steps-1.selected {
+.kenzap .kpst-1.selected {
 
   & .addWhite {
     display: flex;
@@ -446,7 +447,7 @@
    }
 }
 
-.kenzap .kenzap-steps-1 .errorMessage {
+.kenzap .kpst-1 .errorMessage {
   margin-top: 10px;
   background: red;
   padding: 10px;
@@ -455,6 +456,6 @@
   opacity: 0;
 }
 
-.kenzap .kenzap-steps-1 .errorShow {
+.kenzap .kpst-1 .errorShow {
   opacity: 1;
 }

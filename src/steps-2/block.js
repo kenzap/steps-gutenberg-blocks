@@ -1,17 +1,11 @@
-/**
- * BLOCK: steps-2
- *
- */
-
-//  Import CSS.
 import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.editor;
-
+const { RichText, InnerBlocks } = wp.editor;
 import { blockProps, ContainerSave } from '../commonComponents/container/container';
+import { getTypography } from '../commonComponents/typography/typography';
 import Edit from './edit';
 
 /**
@@ -41,6 +35,20 @@ export const defaultSubBlocks = JSON.stringify( [
 ] );
 
 /**
+ * Define typography defaults
+ */
+export const typographyArr = JSON.stringify([
+    {
+        'title': __( '- Title', 'kenzap-steps' ),
+        'font-size': 24,
+        'font-weight': 7,
+        'line-height': 31,
+        'margin-bottom': 0,
+        'color': '#333333',
+    }
+]);
+
+/**
  * Generate inline styles for custom settings of the block
  * @param {Object} attributes - of the block
  * @returns {Node} generated styles
@@ -53,14 +61,13 @@ export const getStyles = attributes => {
 
     const vars = {
         '--paddings': `${ attributes.containerPadding }`,
-        '--paddingsMin': `${ attributes.containerPadding / 4 }`,
-        '--paddingsMinPx': `${ attributes.containerPadding / 4 }px`,
-        '--textColor': `${ attributes.textColor }`,
-        '--roundCircleHoverColor': `${ attributes.roundCircleHoverColor }`,
-        '--numberColor': `${ attributes.numberColor }`,
-        '--numberHoverColor': `${ attributes.numberHoverColor }`,
-        '--arrowColor': `${ attributes.arrowColor }`,
+        '--paddings2': `${ attributes.containerSidePadding }px`,
     };
+
+    if(attributes.numberColor){ vars['--numberColor'] = attributes.numberColor; }
+    if(attributes.numberHoverColor){ vars['--numberHoverColor'] = attributes.numberHoverColor; }
+    if(attributes.arrowColor){ vars['--arrowColor'] = attributes.arrowColor; }
+    if(attributes.roundCircleHoverColor){ vars['--roundCircleHoverColor'] = attributes.roundCircleHoverColor; }
 
     return {
         vars,
@@ -89,6 +96,9 @@ registerBlockType( 'kenzap/steps-2', {
         __( 'Steps', 'kenzap-steps' ),
         __( 'Step', 'kenzap-steps' ),
     ],
+    supports: {
+        align: [ 'full', 'wide' ],
+    },
     anchor: true,
     html: true,
     attributes: {
@@ -96,40 +106,40 @@ registerBlockType( 'kenzap/steps-2', {
 
         titleSize: {
             type: 'number',
-            default: 24,
+            default: 100,
         },
 
         numberSize: {
             type: 'number',
-            default: '74',
-        },
-
-        textColor: {
-            type: 'string',
-            default: '#000',
+            default: 74,
         },
 
         arrowColor: {
             type: 'string',
-            default: '#bb1a14',
+            //default: '#bb1a14',
         },
 
         numberColor: {
             type: 'string',
-            default: '#000',
+            //default: '#000',
         },
 
         numberHoverColor: {
             type: 'string',
-            default: '#fff',
+            //default: '#fff',
         },
 
         roundCircleHoverColor: {
             type: 'string',
-            default: '#bb1a14',
+            //default: '#bb1a14',
         },
 
         items: {
+            type: 'array',
+            default: [],
+        },
+
+        typography: {
             type: 'array',
             default: [],
         },
@@ -150,8 +160,12 @@ registerBlockType( 'kenzap/steps-2', {
             props.setAttributes( {
                 items: [ ...JSON.parse( defaultSubBlocks ) ],
                 isFirstLoad: false,
+                arrowColor: '#bb1a14',
+                numberColor: '#000',
+                numberHoverColor: '#fff',
+                roundCircleHoverColor: '#bb1a14',
             } );
-            // TODO It is very bad solution to avoid low speed working of setAttributes function
+
             props.attributes.items = JSON.parse( defaultSubBlocks );
             if ( ! props.attributes.blockUniqId ) {
                 props.setAttributes( {
@@ -187,8 +201,10 @@ registerBlockType( 'kenzap/steps-2', {
                     style={ vars }
                     withBackground
                     withPadding
+                    
                 >
                     <div className="kenzap-container" style={ kenzapContanerStyles }>
+                        { attributes.nestedBlocks == 'top' && <InnerBlocks.Content /> }
                         <div className="step-list">
                             <div className="kenzap-row">
                                 { attributes.items && attributes.items.map( ( item, index ) => (
@@ -197,19 +213,14 @@ registerBlockType( 'kenzap/steps-2', {
                                         className="kenzap-col-5th"
                                     >
                                         <div className="step-box">
-                                            <div
-                                                className="step-count"
-                                            >
+                                            <div className="step-count" style={ { width: `${ attributes.titleSize }%` } }>
                                                 <span style={ { fontSize: `${ attributes.numberSize }px` } }>{ index + 1 }</span>
                                             </div>
                                             <div className="step-content">
                                                 <RichText.Content
                                                     tagName="h3"
                                                     value={ item.title }
-                                                    style={ {
-                                                        color: attributes.textColor,
-                                                        fontSize: `${ attributes.titleSize }px`,
-                                                    } }
+                                                    style={ getTypography( attributes, 0 ) }
                                                 />
                                             </div>
                                         </div>
@@ -217,6 +228,7 @@ registerBlockType( 'kenzap/steps-2', {
                                 ) ) }
                             </div>
                         </div>
+                        { attributes.nestedBlocks == 'bottom' && <InnerBlocks.Content /> }
                     </div>
                 </ContainerSave>
             </div>

@@ -1,17 +1,11 @@
-/**
- * BLOCK: steps-1
- *
- */
-
-//  Import CSS.
 import './style.scss';
 import './editor.scss';
 
 const { __ } = wp.i18n;
 const { registerBlockType } = wp.blocks;
-const { RichText } = wp.editor;
-
+const { RichText, InnerBlocks } = wp.editor;
 import { blockProps, ContainerSave } from '../commonComponents/container/container';
+import { getTypography } from '../commonComponents/typography/typography';
 import Edit from './edit';
 
 /**
@@ -39,6 +33,28 @@ export const defaultSubBlocks = JSON.stringify( [
 ] );
 
 /**
+ * Define typography defaults
+ */
+export const typographyArr = JSON.stringify([
+    {
+        'title': __( '- Title', 'kenzap-steps' ),
+        'font-size': 30,
+        'font-weight': 7,
+        'line-height': 38,
+        'margin-bottom': 10,
+        'color': '#333333',
+    },
+    {
+        'title': __( '- Description', 'kenzap-steps' ),
+        'text-align':'',
+        'font-size': 15,
+        'font-weight': 4,
+        'line-height': 25,
+        'color': '#333333',
+    },
+]);
+
+/**
  * Generate inline styles for custom settings of the block
  * @param {Object} attributes - of the block
  * @returns {Node} generated styles
@@ -51,10 +67,11 @@ export const getStyles = attributes => {
 
     const vars = {
         '--paddings': `${ attributes.containerPadding }`,
-        '--paddingsMin': `${ attributes.containerPadding / 4 }`,
-        '--paddingsMinPx': `${ attributes.containerPadding / 4 }px`,
-        '--textColor': `${ attributes.textColor }`,
+        '--paddings2': `${ attributes.containerSidePadding }px`,
     };
+
+    if(attributes.stepNumberColor){ vars['--stepNumberColor'] = attributes.stepNumberColor; }
+    if(attributes.textColor2){ vars['--textColor2'] = attributes.textColor2; }
 
     return {
         vars,
@@ -81,31 +98,32 @@ registerBlockType( 'kenzap/steps-1', {
     category: 'layout',
     keywords: [
         __( 'Steps', 'kenzap-steps' ),
-        __( 'Step', 'kenzap-steps' ),
+        __( 'Features', 'kenzap-steps' ),
     ],
     anchor: true,
     html: true,
+    supports: {
+        align: [ 'full', 'wide' ],
+    },
     attributes: {
         ...blockProps,
 
         titleSize: {
             type: 'number',
-            default: 30,
+            default: 46,
         },
 
         descriptionSize: {
             type: 'number',
-            default: 14,
+            default: 18,
         },
 
-        textColor: {
+        textColor2: {
             type: 'string',
-            default: '#000',
         },
 
         stepNumberColor: {
             type: 'string',
-            default: '#FFF',
         },
 
         items: {
@@ -113,6 +131,11 @@ registerBlockType( 'kenzap/steps-1', {
             default: [],
         },
 
+        typography: {
+            type: 'array',
+            default: [],
+        },
+         
         isFirstLoad: {
             type: 'boolean',
             default: true,
@@ -125,12 +148,18 @@ registerBlockType( 'kenzap/steps-1', {
     },
 
     edit: ( props ) => {
+
+
         if ( props.attributes.items.length === 0 && props.attributes.isFirstLoad ) {
             props.setAttributes( {
                 items: [ ...JSON.parse( defaultSubBlocks ) ],
+                textColor2: '#333',
+                textColor3: '#333',
+                textColor4: '#333',
+                stepNumberColor: '#FFF',
                 isFirstLoad: false,
             } );
-            // TODO It is very bad solution to avoid low speed working of setAttributes function
+
             props.attributes.items = JSON.parse( defaultSubBlocks );
             if ( ! props.attributes.blockUniqId ) {
                 props.setAttributes( {
@@ -161,13 +190,14 @@ registerBlockType( 'kenzap/steps-1', {
         return (
             <div className={ className ? className : '' } style={ vars }>
                 <ContainerSave
-                    className={ `kenzap-steps-1 block-${ attributes.blockUniqId }` }
+                    className={ `kpst-1 block-${ attributes.blockUniqId }` }
                     attributes={ attributes }
                     style={ vars }
                     withBackground
                     withPadding
                 >
                     <div className="kenzap-container" style={ kenzapContanerStyles }>
+                        { attributes.nestedBlocks == 'top' && <InnerBlocks.Content /> }
                         <div className="step-list">
                             <div className="kenzap-row">
                                 { attributes.items && attributes.items.map( ( item, index ) => (
@@ -176,28 +206,19 @@ registerBlockType( 'kenzap/steps-1', {
                                         className="kenzap-col-4"
                                     >
                                         <div className="step-box">
-                                            <div
-                                                className="step-count"
-                                            >
-                                                <span style={ { backgroundColor: attributes.textColor, color: attributes.stepNumberColor } }>{ index + 1 }</span>
+                                            <div className="step-count" >
+                                                <span style={ { fontSize: `${ attributes.descriptionSize }px`, lineHeight: `${ attributes.titleSize }px`, width: `${ attributes.titleSize }px`, height: `${ attributes.titleSize }px` } } >{ index + 1 }</span>
                                             </div>
                                             <div className="step-content">
                                                 <RichText.Content
                                                     tagName="h3"
                                                     value={ item.title }
-                                                    style={ {
-                                                        color: attributes.textColor,
-                                                        fontSize: `${ attributes.titleSize }px`,
-                                                    } }
+                                                    style={ getTypography( attributes, 0 ) }
                                                 />
                                                 <RichText.Content
                                                     tagName="p"
                                                     value={ item.description }
-                                                    style={ {
-                                                        color: attributes.textColor,
-                                                        fontSize: `${ attributes.descriptionSize }px`,
-                                                        lineHeight: `${ attributes.descriptionSize * 1.85 }px`,
-                                                    } }
+                                                    style={ getTypography( attributes, 1 ) }
                                                 />
                                             </div>
                                         </div>
@@ -205,6 +226,7 @@ registerBlockType( 'kenzap/steps-1', {
                                 ) ) }
                             </div>
                         </div>
+                        { attributes.nestedBlocks == 'bottom' && <InnerBlocks.Content /> }
                     </div>
                 </ContainerSave>
             </div>

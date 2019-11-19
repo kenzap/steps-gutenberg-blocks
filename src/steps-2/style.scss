@@ -34,7 +34,8 @@
 .kenzap .kenzap-steps-2 .kenzap-container {
   max-width: 1300px;
   margin:0 auto;
-  padding:0 15px;
+  padding:0 var(--paddings2,0);
+  overflow: hidden;
 }
 
 .kenzap .kenzap-steps-2 .kenzap-container:after{
@@ -48,7 +49,7 @@
 
 .kenzap .kenzap-steps-2 .kenzap-row{
   margin:0 -15px;
-  margin-bottom:-50px;
+  //margin-bottom:-50px;
   display:flex;
   display:-webkit-flex;
   align-items:flex-start;
@@ -67,7 +68,7 @@
 .kenzap .kenzap-steps-2 .step-list .step-box {
   text-align:center;
   padding:0 15px;
-  margin:0 auto 50px;
+  margin:25px auto 25px;
   opacity:0;
   transition:all .5s
 }
@@ -100,7 +101,6 @@
 .kenzap .kenzap-steps-2 .step-list > div > div:last-child .step-box .step-count:after{
   display:none
 }
-
 
 .kenzap .kenzap-steps-2 .step-list .step-box .step-count:before{
   padding:100% 0 0;
@@ -147,7 +147,6 @@
   z-index:-2
 }
 
-
 .kenzap .kenzap-steps-2 .step-list .step-box .step-count span:after{
   display:block;
   content:"";
@@ -159,7 +158,7 @@
   background-color: #bb1a14;
   background-color: var(--roundCircleHoverColor);
   border-radius: 100%;
-  z-index: 8;
+  z-index: 2;
   opacity: 0;
   -webkit-transform: scale(.6);
   -moz-transform: scale(.6);
@@ -194,17 +193,14 @@
   text-align:center;
   margin:0;
   letter-spacing: -.06em;
-  font-size: 24px;
-  font-weight: 700;
-  color: #000;
+  width: 100%;
   opacity: 1;
   line-height: 1.2;
   -webkit-transition: opacity .2s ease,-webkit-transform .3s ease;
   -moz-transition: opacity .2s ease,-moz-transform .3s ease;
   transition: opacity .2s ease,transform .3s ease;
-  z-index:8
+  z-index:2
 }
-
 
 .kenzap .kenzap-steps-2.kenzap-md .step-list .kenzap-col-5th{
   width:33.33333%;
@@ -226,7 +222,6 @@
   width:70%;
 }
 
-
 .kenzap .kenzap-steps-2.kenzap-md .step-list .step-box .step-count:after,
 .kenzap .kenzap-steps-2.kenzap-sm .step-list .step-box .step-count:after,
 .kenzap .kenzap-steps-2.kenzap-xs .step-list .step-box .step-count:after{
@@ -242,10 +237,7 @@
   .kenzap .kenzap-steps-2 .step-list .step-box .step-count:after{
     display:none
   }
-
 }
-
-
 
 @media screen and (max-width: 61.938em) {
   /* width: 991px; */
@@ -266,7 +258,6 @@
     width:100%;
   }
 }
-
 
 @media screen and (max-width: 48em) {
   /* width 768px */

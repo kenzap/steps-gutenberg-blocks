@@ -1,11 +1,10 @@
-const { __ } = wp.i18n; // Import __() from wp.i18n
+const { __ } = wp.i18n;
 const { Component } = wp.element;
-const { RichText, InspectorControls, PanelColorSettings } = wp.editor;
+const { RichText, InspectorControls, PanelColorSettings, InnerBlocks } = wp.editor;
 const { RangeControl, PanelBody } = wp.components;
-
-import { defaultItem, getStyles } from './block';
-
+import { defaultItem, typographyArr, getStyles } from './block';
 import { InspectorContainer, ContainerEdit } from '../commonComponents/container/container';
+import { TypographyContainer, getTypography } from '../commonComponents/typography/typography';
 import { Plus } from '../commonComponents/icons/plus';
 
 /**
@@ -101,11 +100,11 @@ export default class Edit extends Component {
                         initialOpen={ false }
                     >
                         <RangeControl
-                            label={ __( 'Title size', 'kenzap-steps' ) }
+                            label={ __( 'Circle size', 'kenzap-steps' ) }
                             value={ attributes.titleSize }
                             onChange={ ( titleSize ) => setAttributes( { titleSize } ) }
-                            min={ 10 }
-                            max={ 130 }
+                            min={ 40 }
+                            max={ 120 }
                         />
                         <RangeControl
                             label={ __( 'Number size', 'kenzap-steps' ) }
@@ -114,51 +113,53 @@ export default class Edit extends Component {
                             min={ 10 }
                             max={ 130 }
                         />
-                        <PanelColorSettings
-                            title={ __( 'Colors', 'kenzap-steps' ) }
-                            initialOpen={ false }
-                            colorSettings={ [
-                                {
-                                    value: attributes.textColor,
-                                    onChange: ( textColor ) => {
-                                        return setAttributes( { textColor } );
-                                    },
-                                    label: __( 'Text color', 'kenzap-steps' ),
-                                },
-                                {
-                                    value: attributes.arrowColor,
-                                    onChange: ( arrowColor ) => {
-                                        return setAttributes( { arrowColor } );
-                                    },
-                                    label: __( 'Arrow color', 'kenzap-steps' ),
-                                },
-                                {
-                                    value: attributes.numberColor,
-                                    onChange: ( numberColor ) => {
-                                        return setAttributes( { numberColor } );
-                                    },
-                                    label: __( 'Number color', 'kenzap-steps' ),
-                                },
-                                {
-                                    value: attributes.numberHoverColor,
-                                    onChange: ( numberHoverColor ) => {
-                                        return setAttributes( { numberHoverColor } );
-                                    },
-                                    label: __( 'Number hover color', 'kenzap-steps' ),
-                                },
-                                {
-                                    value: attributes.roundCircleHoverColor,
-                                    onChange: ( roundCircleHoverColor ) => {
-                                        return setAttributes( { roundCircleHoverColor } );
-                                    },
-                                    label: __( 'Round circle hover color', 'kenzap-steps' ),
-                                },
-                            ] }
-                        />
                     </PanelBody>
+
+                    <PanelColorSettings
+                        title={ __( 'Colors', 'kenzap-steps' ) }
+                        initialOpen={ false }
+                        colorSettings={ [
+                            {
+                                value: attributes.arrowColor,
+                                onChange: ( arrowColor ) => {
+                                    return setAttributes( { arrowColor } );
+                                },
+                                label: __( 'Arrow', 'kenzap-steps' ),
+                            },
+                            {
+                                value: attributes.numberColor,
+                                onChange: ( numberColor ) => {
+                                    return setAttributes( { numberColor } );
+                                },
+                                label: __( 'Number', 'kenzap-steps' ),
+                            },
+                            {
+                                value: attributes.numberHoverColor,
+                                onChange: ( numberHoverColor ) => {
+                                    return setAttributes( { numberHoverColor } );
+                                },
+                                label: __( 'Number hover', 'kenzap-steps' ),
+                            },
+                            {
+                                value: attributes.roundCircleHoverColor,
+                                onChange: ( roundCircleHoverColor ) => {
+                                    return setAttributes( { roundCircleHoverColor } );
+                                },
+                                label: __( 'Circle hover', 'kenzap-steps' ),
+                            },
+                        ] }
+                    />
+
+                    <TypographyContainer
+                        setAttributes={ setAttributes }
+                        typographyArr={ typographyArr }
+                        { ...attributes }
+                    />
+
                     <InspectorContainer
                         setAttributes={ setAttributes }
                         { ...attributes }
+                        withNested
                         withPadding
                         withWidth100
                         withBackground
@@ -171,8 +172,10 @@ export default class Edit extends Component {
                         attributes={ attributes }
                         withBackground
                         withPadding
+                        
                     >
                         <div className="kenzap-container">
+                            { attributes.nestedBlocks == 'top' && <InnerBlocks className="kpnesb" /> }
                             <div className="step-list list-loaded">
                                 <div className="kenzap-row">
 
@@ -182,13 +185,11 @@ export default class Edit extends Component {
                                             className="kenzap-col-5th"
                                         >
                                             <button className="remove" onClick={ () => this.removeItem( index ) }>
-                                                <span className="dashicons dashicons-no" />
+                                                <i className="dashicons dashicons-no" />
                                             </button>
 
                                             <div className="step-box">
-                                                <div
-                                                    className="step-count"
-                                                >
+                                                <div className="step-count" style={ { width: `${ attributes.titleSize }%` } }  >
                                                     <span style={ { fontSize: `${ attributes.numberSize }px` } }>{ index + 1 }</span>
                                                 </div>
                                                 <div className="step-content">
@@ -198,10 +199,7 @@ export default class Edit extends Component {
                                                         placeholder={ __( 'Title', 'kenzap-steps' ) }
                                                         value={ item.title }
                                                         onChange={ ( value ) => this.onChangePropertyItem( 'title', value, index, true ) }
-                                                        style={ {
-                                                        color: attributes.textColor,
-                                                        fontSize: `${ attributes.titleSize }px`,
-                                                    } }
+                                                        style={ getTypography( attributes, 0 ) }
                                                 />
                                                 </div>
                                             </div>
@@ -209,6 +207,7 @@ export default class Edit extends Component {
                                     ) ) }
                                 </div>
                             </div>
+                            { attributes.nestedBlocks == 'bottom' && <InnerBlocks className="kpnesb" /> }
                         </div>
                         { this.state.showError && <div className={ 'errorMessage errorShow' }>
                             { __( 'The maximum count steps is 5. Please create a new kenzap step 2 block for new steps', 'kenzap-steps' ) }

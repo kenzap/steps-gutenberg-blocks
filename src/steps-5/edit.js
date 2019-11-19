@@ -1,11 +1,10 @@
-const { __ } = wp.i18n; // Import __() from wp.i18n
+const { __ } = wp.i18n;
 const { Component } = wp.element;
-const { RichText, InspectorControls, PanelColorSettings } = wp.editor;
+const { RichText, InspectorControls, PanelColorSettings, InnerBlocks } = wp.editor;
 const { RangeControl, PanelBody } = wp.components;
-
-import { defaultItem, getStyles } from './block';
-
+import { defaultItem, typographyArr, getStyles } from './block';
 import { InspectorContainer, ContainerEdit } from '../commonComponents/container/container';
+import { TypographyContainer, getTypography } from '../commonComponents/typography/typography';
 import { Plus } from '../commonComponents/icons/plus';
 
 /**
@@ -57,6 +56,11 @@ export default class Edit extends Component {
         this.props.setAttributes( { items: items } );
     };
 
+
+    onChangeAlignment = ( newAlignment ) => {
+        this.props.setAttributes( { alignment: newAlignment === undefined ? 'none' : newAlignment } );
+    };
+
     /**
      * Remove item
      * It also add default item if we remove all elements from array
@@ -81,8 +85,10 @@ export default class Edit extends Component {
         } = this.props;
 
         const { vars } = getStyles( attributes );
+
         return (
             <div>
+                                                    
                 <InspectorControls>
                     <PanelBody
                         title={ __( 'General', 'kenzap-steps' ) }
@@ -95,36 +101,17 @@ export default class Edit extends Component {
                             min={ 10 }
                             max={ 200 }
                         />
-                        <RangeControl
-                            label={ __( 'Title size', 'kenzap-steps' ) }
-                            value={ attributes.titleSize }
-                            onChange={ ( titleSize ) => setAttributes( { titleSize } ) }
-                            min={ 10 }
-                            max={ 130 }
-                        />
-                        <RangeControl
-                            label={ __( 'Description size', 'kenzap-steps' ) }
-                            value={ attributes.descriptionSize }
-                            onChange={ ( descriptionSize ) => setAttributes( { descriptionSize } ) }
-                            min={ 10 }
-                            max={ 130 }
-                        />
+
                         <PanelColorSettings
                             title={ __( 'Colors', 'kenzap-steps' ) }
                             initialOpen={ false }
                             colorSettings={ [
-                                {
-                                    value: attributes.textColor,
-                                    onChange: ( value ) => {
-                                        return setAttributes( { textColor: value } );
-                                    },
-                                    label: __( 'Text color', 'kenzap-steps' ),
-                                },
 
                                 {
                                     value: attributes.stepNumberColor,
-                                    onChange: ( stepNumberColor ) => {
-                                        return setAttributes( { stepNumberColor } );
+                                    onChange: ( vaule ) => {
+                                        if(!vaule) vaule = '#ffffff';
+                                        return setAttributes( { stepNumberColor: vaule } );
                                     },
                                     label: __( 'Step number color', 'kenzap-steps' ),
                                 },
@@ -139,9 +126,17 @@ export default class Edit extends Component {
                             ] }
                         />
                     </PanelBody>
+
+                    <TypographyContainer
+                        setAttributes={ setAttributes }
+                        typographyArr={ typographyArr }
+                        { ...attributes }
+                    />
+
                     <InspectorContainer
                         setAttributes={ setAttributes }
                         { ...attributes }
+                        withNested
                         withPadding
                         withWidth100
                         withBackground
@@ -156,6 +151,7 @@ export default class Edit extends Component {
                         withPadding
                     >
                         <div className="kenzap-container">
+                            { attributes.nestedBlocks == 'top' && <InnerBlocks className="kpnesb" /> }
                             <div className="step-list list-loaded">
                                 <div className="kenzap-row">
                                     { attributes.items && attributes.items.map( ( item, index ) => (
@@ -165,7 +161,7 @@ export default class Edit extends Component {
                                             style={ { width: '50%' } }
                                         >
                                             <button className="remove" onClick={ () => this.removeItem( index ) }>
-                                                <span className="dashicons dashicons-no" />
+                                                <i className="dashicons dashicons-no" />
                                             </button>
                                             <div className="step-box">
                                                 <div className="step-count">
@@ -183,22 +179,15 @@ export default class Edit extends Component {
                                                         placeholder={ __( 'Title', 'kenzap-steps' ) }
                                                         value={ item.title }
                                                         onChange={ ( value ) => this.onChangePropertyItem( 'title', value, index, true ) }
-                                                        style={ {
-                                                            color: attributes.textColor,
-                                                            fontSize: `${ attributes.titleSize }px`,
-                                                            lineHeight: `${ attributes.titleSize * 1.25 }px`,
-                                                        } }
+                                                        style={ getTypography( attributes, 0 ) }
                                                     />
+
                                                     <RichText
                                                         tagName="p"
                                                         placeholder={ __( 'Description', 'kenzap-steps' ) }
                                                         value={ item.description }
                                                         onChange={ ( value ) => this.onChangePropertyItem( 'description', value, index, true ) }
-                                                        style={ {
-                                                            color: attributes.textColor,
-                                                            fontSize: `${ attributes.descriptionSize }px`,
-                                                            lineHeight: `${ attributes.descriptionSize * 1.69 }px`,
-                                                        } }
+                                                        style={ getTypography( attributes, 1 ) }
                                                     />
                                                 </div>
                                             </div>
@@ -206,6 +195,7 @@ export default class Edit extends Component {
                                     ) ) }
                                 </div>
                             </div>
+                            { attributes.nestedBlocks == 'bottom' && <InnerBlocks className="kpnesb" /> }
                         </div>
                         <div className="editPadding" />
                         <button
